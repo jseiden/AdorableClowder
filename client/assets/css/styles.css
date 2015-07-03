@@ -44,9 +44,23 @@
   text-align: center;
   margin-top: 50px;
 }
+<<<<<<< HEAD
 /*explore styling*/
 .jumbotron {
   backgroud-color: red;
+=======
+.subjects-box {
+  background-color: grey;
+  color: #FFFFFF;
+}
+.all-wants,
+.all-offers {
+  list-style: none;
+}
+.all-wants li.active,
+.all-offers li.active {
+  color: blue;
+>>>>>>> master
 }
 /*masonry grid styling*/
 .grid {

@@ -11,14 +11,18 @@ Icon
 ._*
 
 # Files that might appear on external disk
+client/build/**
 .Spotlight-V100
 .Trashes
 node_modules/
 client/lib
 
+<<<<<<< HEAD
 skillit.min.js
 client/build/**
 
+=======
+>>>>>>> master
 # Floobits
 .floo
 .floobit

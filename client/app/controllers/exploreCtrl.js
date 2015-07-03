@@ -7,9 +7,10 @@ angular.module('exploreCtrl', [])
   vm.getSkills = function () {
 
     // using Users factory from factories.js to do GET
-    Users.getOtherUsers(vm.user)
+    Users.getOtherUsers()
       .then(function (data) {
         vm.userArray = data;
+        console.log("data: ", data);
         vm.filterSkills(vm.userArray);
       })
       .catch(function (err) {
@@ -38,10 +39,12 @@ angular.module('exploreCtrl', [])
   // addition by Jake S.
   vm.getSkillStats = function(){
     console.log("getSkillStats firred");
+    //why is vm.user undefined?
+    console.log("vm.user: ", vm.user);
     // get data from users who aren't the current user
+    var userInfo = [];
     Users.getOtherUsers(vm.user)
       .then(function (data){
-        var userInfo = [];
         // put all the other users' skills offered in one array
         _.each(data, function(item){
           userInfo.push( _.flatten(item.offer));
@@ -57,6 +60,7 @@ angular.module('exploreCtrl', [])
           return pair[1];
         });
         vm.tally = sortedPairs;
+        console.log("userInfo: ", userInfo);
         console.log("tally: ", vm.tally);
         // populate dataset for Chart
         // vm.populateDatasets(vm.tally);
@@ -66,13 +70,13 @@ angular.module('exploreCtrl', [])
       });
   };
 
-  vm.masonryOptions =  {
-       'itemSelector': '.grid-item',
-       'percentPosition': true,
-       'columnWidth':
-       '.grid-sizer',
-       'isFitWidth': true
-  };
+  // vm.masonryOptions =  {
+  //      'itemSelector': '.grid-item',
+  //      'percentPosition': true,
+  //      'columnWidth':
+  //      '.grid-sizer',
+  //      'isFitWidth': true
+  // };
 
 
   //shows list of skills by default, or people with certain skill when clicked
@@ -88,7 +92,7 @@ angular.module('exploreCtrl', [])
     });
   };
 
-  vm.getSkills();
+  // vm.getSkills();
 
 });
 

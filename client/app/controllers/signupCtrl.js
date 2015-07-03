@@ -6,6 +6,27 @@ angular.module('signupCtrl', ['ui.bootstrap'])
 
   vm.user = {};
 
+
+  vm.setAction = function(){
+    Auth.setAction('signup')
+    .then(function(){
+      console.log('action set');
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  };
+
+  vm.setToken = function(){
+    Auth.setToken()
+      .then(function(token){
+        console.log('user----------------------', token);
+        $window.localStorage.setItem('skillitToken', token);
+        console.log('attempted choosesubjects');
+        $location.path('/choosesubjects');
+      });
+  };
+
   vm.doSignup = function () {
      console.log('dosignup called');
       Auth.signup(vm.user)
@@ -27,6 +48,8 @@ angular.module('signupCtrl', ['ui.bootstrap'])
     vm.user = {};
     vm.wants = [];
     vm.offers = [];
+    vm.wantsSkills = [];
+    vm.offersSkills = [];
 
     vm.getUser = function () {
       //using Users factory from factories.js to do GET
@@ -34,7 +57,13 @@ angular.module('signupCtrl', ['ui.bootstrap'])
         .then(function (user) {
           vm.user = user;
           vm.wants = vm.user.want;
+          vm.wantsSkills = vm.wants.map(function(item) {
+            return item.skill;
+          });
           vm.offers = vm.user.offer;
+          vm.offersSkills = vm.offers.map(function(item) {
+            return item.skill;
+          });
           console.log(vm.user);
         })
         .catch(function (err) {
@@ -60,21 +89,27 @@ angular.module('signupCtrl', ['ui.bootstrap'])
 
     vm.chooseOffers = false;
 
+
     vm.toggleWant = function(want, category) {
-      var index = vm.wants.indexOf(want);
+      var index = vm.wantsSkills.indexOf(want);
       if (index > -1) {
+        console.log('turning off');
         vm.wants.splice(index, 1);
+        vm.wantsSkills.splice(index, 1);
       } else {
         vm.wants.push({skill: want, category: category});
+        vm.wantsSkills.push(want);
       }
     };
 
     vm.toggleOffer = function(offer, category) {
-      var index = vm.offers.indexOf(offer);
+      var index = vm.offersSkills.indexOf(offer);
       if (index > -1) {
         vm.offers.splice(index, 1);
+        vm.offersSkills.splice(index, 1);
       } else {
         vm.offers.push({skill: offer, category: category});
+        vm.offersSkills.push(offer);
       }
     };
 
@@ -97,11 +132,17 @@ angular.module('signupCtrl', ['ui.bootstrap'])
     vm.test = "hotdog";
     vm.subject = undefined;
     // data for predictive text
-    vm.languages = ['Spanish', 'German', 'Japanese', 'Italian', 'Mandarin', 'Navajo', 'Cantonese', 'Esperanto', 'Korean', 'Thai', 'Dutch', 'Russian', 'French', 'Albanian', 'Greek', 'Catalan', 'Galician', 'Hebrew', 'Hungarian', 'Icelandic', 'Latin', 'Lithuanian', 'Polish', 'Portuguese', 'Romanian', 'Afrikaans', 'Arabic', 'Armenian', 'Basque', 'Bengali', 'Bulgarian', 'Burmese', 'Chechen', 'Cornish', 'Czech', 'Croatian', 'Danish', 'English', 'Estonian', 'Faroese', 'Fijian', 'Finnish', 'Georgian', 'Hindi', 'Indonesian', 'Lao'];
-    vm.knowledge = ['Art History', 'Philosophy', 'Linguistics', 'Anthropology', 'Biology', 'Physics', 'Chemistry'];
-    vm.craftAndDesign = ['Weaving', 'Pottery', 'Painting', 'Sketching', ''];
-    vm.technology = ['Python', 'Javascript', 'HTML', 'CSS', 'Ruby', 'C++', 'Java', 'Photography', 'Photoshop', 'Robotics', '3d Printing'];
-    vm.wildNWacky = ['Juggling', 'Busking', 'Moping', 'Dog Walking', 'Cat Sitting'];
-    vm.sports = ['Basketball', 'Disc Golf', 'Curling', 'Hockey', 'Dog Sledding', 'Baseball', 'Rugby'];
-    vm.business = ['Accounting', 'Investing', 'Sales', 'Entrepreneurship', 'Smooth Talking'];
+    vm.subjects = {
+      languages : ['Spanish', 'German', 'Japanese', 'Italian', 'Mandarin', 'Navajo', 'Cantonese', 'Esperanto', 'Korean', 'Thai', 'Dutch', 'Russian', 'French', 'Albanian', 'Greek', 'Catalan', 'Galician', 'Hebrew', 'Hungarian', 'Icelandic', 'Latin', 'Lithuanian', 'Polish', 'Portuguese', 'Romanian', 'Afrikaans', 'Arabic', 'Armenian', 'Basque', 'Bengali', 'Bulgarian', 'Burmese', 'Chechen', 'Cornish', 'Czech', 'Croatian', 'Danish', 'English', 'Estonian', 'Faroese', 'Fijian', 'Finnish', 'Georgian', 'Hindi', 'Indonesian', 'Lao'],
+      knowledge : ['Art History', 'Philosophy', 'Linguistics', 'Anthropology', 'Biology', 'Physics', 'Chemistry'],
+      craftAndDesign : ['Weaving', 'Pottery', 'Painting', 'Sketching', ''],
+      technology : ['Python', 'Javascript', 'HTML', 'CSS', 'Ruby', 'C++', 'Java', 'Photography', 'Photoshop', 'Robotics', '3d Printing'],
+      wildNWacky : ['Juggling', 'Busking', 'Moping', 'Dog Walking', 'Cat Sitting'],
+      sports : ['Basketball', 'Disc Golf', 'Curling', 'Hockey', 'Dog Sledding', 'Baseball', 'Rugby'],
+      business : ['Accounting', 'Investing', 'Sales', 'Entrepreneurship', 'Smooth Talking']
+    };
+    vm.allSubjects = _.reduce(vm.subjects, function(arr1, arr2){
+      arr1 = arr1.concat(arr2);
+      return arr1;
+    });
    });
