@@ -55,7 +55,6 @@ angular.module('skillitFactories', [])
   .factory('Users', function ($http, $location, $window) {
     var userFactory = {};
     userFactory.getOtherUsers = function () {
-      console.log("Users factory reached");
       return $http({
           method: 'GET',
           url: '/explore',

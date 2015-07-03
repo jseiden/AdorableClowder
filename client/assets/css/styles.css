@@ -44,11 +44,22 @@
   text-align: center;
   margin-top: 50px;
 }
-<<<<<<< HEAD
-/*explore styling*/
-.jumbotron {
-  backgroud-color: red;
-=======
+/*masonry grid styling*/
+.grid {
+  height: 800px;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+.grid-item {
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  float: left;
+  height: 60px;
+  margin: 3px;
+  text-align: center;
+  width: 80px;
+}
 .subjects-box {
   background-color: grey;
   color: #FFFFFF;
@@ -60,25 +71,4 @@
 .all-wants li.active,
 .all-offers li.active {
   color: blue;
->>>>>>> master
-}
-/*masonry grid styling*/
-.grid {
-  margin: 0 auto;
-  margin-top: 20px;
-  width: 600px;
-}
-.grid-item {
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  float: left;
-  height: 200px;
-  line-height: 200px;
-  width: 200px;
-  word-wrap: break-word;
-}
-.grid-item--width2 {
-  width: 160px;
-}
-.grid-item--height2 {
-  height: 140px;
 }

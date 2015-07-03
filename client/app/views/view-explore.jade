@@ -2,9 +2,11 @@
   h2 Learn New Skills
 div(ng-controller="exploreController as explore")
   input(type="button" value="most common skills" ng-click="explore.getSkillStats()")
-  .grid(class="js-masonry" data-masonry-options="{'itemSelector': '.grid-item','percentPosition': true,'columnWidth':'.grid-sizer','isFitWidth': true}")
+  .grid(ng-controller="subjectsController as subjects" class="js-masonry" data-masonry-options="{'itemSelector': '.grid-item','percentPosition': true,'columnWidth':'.grid-sizer','isFitWidth': true, 'isOriginTop': false}")
     .grid-sizer
-    .grid-item(ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 10 + 'px'}")
-      {{ entry[0] }}
+    .grid-item(ng-repeat="(key, val) in explore.dummyTally" ng-click="subjects.testFunc()" ng-style="{'font-size': 8 + val * 4 + 'px', 'width': (30 + (val * 10)) + 'px', 'height': (30 + (val * 10)) + 'px', 'line-height': (30 + (val * 10)) + 'px'}")
+      //- {{ entry[0] }}
+      {{ key }}
 
 
+//TODO: write category into tally query, call subjects.toggleOffer (subj, cat), redirect

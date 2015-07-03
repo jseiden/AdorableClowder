@@ -7,10 +7,9 @@ angular.module('exploreCtrl', [])
   vm.getSkills = function () {
 
     // using Users factory from factories.js to do GET
-    Users.getOtherUsers()
+    Users.getOtherUsers(vm.user)
       .then(function (data) {
         vm.userArray = data;
-        console.log("data: ", data);
         vm.filterSkills(vm.userArray);
       })
       .catch(function (err) {
@@ -39,15 +38,16 @@ angular.module('exploreCtrl', [])
   // addition by Jake S.
   vm.getSkillStats = function(){
     console.log("getSkillStats firred");
-    //why is vm.user undefined?
+    //why is vm.user undefined
     console.log("vm.user: ", vm.user);
     // get data from users who aren't the current user
+    vm.user = {};
     var userInfo = [];
-    Users.getOtherUsers(vm.user)
+    Users.getOtherUsers()
       .then(function (data){
         // put all the other users' skills offered in one array
         _.each(data, function(item){
-          userInfo.push( _.flatten(item.offer));
+          userInfo.push(_.flatten(item.offer));
         });
         // count the occurences of each skill offered
         var tally = {};
@@ -60,16 +60,31 @@ angular.module('exploreCtrl', [])
           return pair[1];
         });
         vm.tally = sortedPairs;
-        console.log("userInfo: ", userInfo);
-        console.log("tally: ", vm.tally);
         // populate dataset for Chart
         // vm.populateDatasets(vm.tally);
       })
       .catch(function (err){
         console.log(err);
       });
+        // console.log("userInfo: ", userInfo);
+        console.log("vm.user in Users.getOtherStories: ", vm.user);
+        console.log("tally: ", vm.tally);
   };
-
+  // this is a dummy tally until I figure out what broke the real tally :/
+  vm.dummyTally = {
+    "javascript": 30,
+     "parking": 15,
+     "WOW": 12,
+     "java": 10,
+     "weaving": 9,
+     "dog walking": 9,
+     "ESP": 7,
+     "juggling": 5,
+     "opera": 3,
+     "puppets": 3,
+     "zen": 1
+  };
+  // this options object currently within view.explore.jade because I couldn't seem to get it to work from this file
   // vm.masonryOptions =  {
   //      'itemSelector': '.grid-item',
   //      'percentPosition': true,
@@ -92,7 +107,8 @@ angular.module('exploreCtrl', [])
     });
   };
 
-  // vm.getSkills();
+
+   vm.getSkills();
 
 });
 

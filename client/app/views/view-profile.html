@@ -5,14 +5,14 @@
     </div>
   <h2>Your Profile</h2>
   <h3>{{profile.user.username}}</h3>
-  
+
 <div class="row">
- <div class="col-md-4">  
+ <div class="col-md-4">
     <h5>What you want to teach:</h5>
       <a href="#" ng-repeat="offer in profile.user.offer" ng-click="profile.toggleOffer(offer)">{{ offer }}<span class="glyphicon glyphicon-remove"></span></a>
   </div>
 </div>
-  <form ng-submit="profile.toggleOffer(customOffer); customerOffer = ''">
+  <form ng-submit="profile.toggleOffer(customOffer); customerOffer = ''" ng-controller="typeAheadController as taCtrl">
     <input type="text" ng-model="customOffer" placeholder="Add something else">
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.selectedCategory }}<span class="caret"></span></button>
@@ -41,7 +41,7 @@
     <button type="submit">Add</button>
   </form>
 </div>
-    
+
     <h5>Your email address:</h5>
     <li>{{profile.user.email}}</li>
 

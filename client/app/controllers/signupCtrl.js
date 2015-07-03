@@ -64,7 +64,7 @@ angular.module('signupCtrl', ['ui.bootstrap'])
           vm.offersSkills = vm.offers.map(function(item) {
             return item.skill;
           });
-          console.log(vm.user);
+          console.log("vm.user in signupCtrl.getUser", vm.user);
         })
         .catch(function (err) {
           console.log(err);
@@ -89,7 +89,6 @@ angular.module('signupCtrl', ['ui.bootstrap'])
 
     vm.chooseOffers = false;
 
-
     vm.toggleWant = function(want, category) {
       var index = vm.wantsSkills.indexOf(want);
       if (index > -1) {
@@ -103,6 +102,7 @@ angular.module('signupCtrl', ['ui.bootstrap'])
     };
 
     vm.toggleOffer = function(offer, category) {
+      console.log("toggle offer fired");
       var index = vm.offersSkills.indexOf(offer);
       if (index > -1) {
         vm.offers.splice(index, 1);
@@ -123,13 +123,10 @@ angular.module('signupCtrl', ['ui.bootstrap'])
           $location.path('/login');
         });
     };
-
-
-
   })
+
    .controller('typeAheadController', function(){
     var vm = this;
-    vm.test = "hotdog";
     vm.subject = undefined;
     // data for predictive text
     vm.subjects = {
