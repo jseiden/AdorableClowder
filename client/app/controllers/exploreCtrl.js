@@ -65,22 +65,14 @@ angular.module('exploreCtrl', [])
         console.log(err);
       });
   };
-  // this function formats the (skill) offer data for Chart.js
-  // vm.populateDatasets = function(data){
-  //   console.log("populateDatasets fired");
-  //   // purge dataSet before populating
-  //   vm.dataSets.length = 0;
-  //   _.each(data, function(item){
-  //     var obj = {};
-  //     obj.label = item[0];
-  //     obj.value = item[1];
-  //     obj.color = _.sample(vm.colors);
-  //     obj.hightlight = "black";
 
-  //     vm.dataSets.push(obj);
-  //   });
-  //   console.log("vm.dataSets: ", vm.dataSets);
-  // };
+  vm.masonryOptions =  {
+       'itemSelector': '.grid-item',
+       'percentPosition': true,
+       'columnWidth':
+       '.grid-sizer',
+       'isFitWidth': true
+  };
 
 
   //shows list of skills by default, or people with certain skill when clicked

@@ -1,0 +1,10 @@
+.jumbotron(class="text-center")
+  h2 Learn New Skills
+div(ng-controller="exploreController as explore")
+  input(type="button" value="most common skills" ng-click="explore.getSkillStats()")
+  .grid(class="js-masonry" data-masonry-options="{'itemSelector': '.grid-item','percentPosition': true,'columnWidth':'.grid-sizer','isFitWidth': true}")
+    .grid-sizer
+    .grid-item(ng-repeat="entry in explore.tally" ng-style="{'font-size': entry[1] * 10 + 'px'}")
+      {{ entry[0] }}
+
+
